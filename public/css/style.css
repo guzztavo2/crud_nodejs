@@ -13,5 +13,8 @@
 a{
     text-decoration: none !important;
 }
-
+button{
+    outline:0;
+    border:0;
+}
 

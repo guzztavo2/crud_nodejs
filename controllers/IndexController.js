@@ -6,7 +6,7 @@ class userController extends Controller {
     }
 
     async index(request) {
-        return this.response.data('Hello user!', 200);
+        return this.response.view('index', 200, {});
     }
 }
 

@@ -66,7 +66,7 @@ class App {
 
         await this.defineStorageRoutes();
     }
-    
+
     async defineStorageRoutes() {
         const Storage = require('./resources/Storage');
         const mime = require('mime-types');
@@ -136,7 +136,7 @@ class App {
     }
     async checkMiddlewares(route) {
         const middlewares = [];
-        if (route.middlewares && route.middlewares.length > 0) {
+        if (route.middlewares && route.middlewares.length > 0)
             for (const middleware_ of route.middlewares) {
                 var pathMiddleware = File.getDirPath('middlewares');
                 let middlewaresFiles = await File.readFilesFromDirectory(pathMiddleware);
@@ -147,9 +147,8 @@ class App {
                     }
                 }
             }
-            route.middlewares = middlewares;
-            return route;
-        }
+        route.middlewares = middlewares;
+        return route;
     }
 
     async readFilesRoutes() {
