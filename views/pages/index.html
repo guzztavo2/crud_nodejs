@@ -1,0 +1,24 @@
+<%- include('../components/navbar'); %>
+    <div style="overflow: auto;"
+        class="d-flex flex-column justify-content-center align-items-center container h-100 w-100 text-dark mw-100">
+        <div id="pageDiv" class="d-block border rounded shadow-lg col-lg-4 col-md-8 col-12 p-3">
+            <h4 class="p-2 text-uppercase text-center border-dark border-bottom m-0">Registre-se ou acesse sua
+                conta</h4>
+            <div class="d-block w-100 text-start mt-2 bg-white">
+                <h6 class="p-2 text-uppercase m-0 p-0">Você já possuí uma conta?</h6>
+                <div class="w-100 d-flex flex-column flex-wrap align-items-center p-2">
+                    <a href="/login"
+                        class="btn btn-outline-dark fs-6 cursor-pointer col-12 p-2 shadow rounded">Sim,
+                        eu já possuo
+                        uma conta
+                    </a>
+                    <a href="/registro"
+                        class="btn btn-danger fs-6 mt-2 cursor-pointer col-12 p-2 shadow rounded">Não, eu ainda
+                        não possuo uma
+                        conta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../components/footer'); %>

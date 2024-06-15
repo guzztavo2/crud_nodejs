@@ -1,0 +1,51 @@
+<%- include('../components/navbar'); %>
+    <div style="overflow: auto;"
+        class="d-flex flex-column justify-content-center align-items-center container h-100 w-100 text-dark mw-100">
+        <div id="pageDiv" class="d-block border rounded shadow-lg col-xl-4 col-12 p-3">
+            <div class="d-flex w-100 flex-row justify-content-start align-items-center flex-wrap">
+                <a href="../" id="backBtn" class="btn btn-outline-dark m-0 p-0 px-2 py-1 cursor-pointer rounded">
+                    <i class="fs-5 bi bi-arrow-return-left"></i> <br>
+                    <span class="fs-6 fw-normal">Voltar</span>
+                </a>
+                <h5 class="col-10 ms-2 p-2 text-uppercase m-0">Acesse sua conta</h5>
+                <hr class="w-100 bg-dark d-block">
+
+                <form method="post" action="/login" class="row col-12">
+                    <div class="col-12 d-flex flex-column justify-content-center">
+                        <label for="validationCustomUsername" class="fw-bold form-label">Nome de usuário / E-mail
+                            *</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">✉️</span>
+                            <input name="login_user" type="text" class="form-control" id="validationCustomUsername"
+                                aria-describedby="inputGroupPrepend" required placeholder="Digite aqui">
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex flex-column justify-content-center my-4">
+                        <label for="validationCustomPassword" class="fw-bold form-label">Senha de usuário *</label>
+                        <div class="input-group has-validation">
+                            <span class="input-group-text" id="inputGroupPrepend">🔒</span>
+                            <input name="password_user" type="password" class="form-control" id="validationCustomPassword"
+                                aria-describedby="inputGroupPrepend" required placeholder="Digite sua senha aqui">
+                            <div class="invalid-feedback">
+                                Nome usuário / E-mail invalidos / Senha, tente novamente.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-dark shadow" type="submit"><i class="bi bi-box-arrow-in-right"></i>
+                            Acessar
+                            conta</button>
+                    </div>
+
+                    <div class="col-12 d-flex flex-row flex-wrap justify-content-around align-items-center my-4">
+                        <a href="/reset_password" class="col-sm-auto col-12 my-sm-0 my-2 fw-bold btn btn-outline-danger shadow text-start"><i
+                                class="bi bi-person-exclamation m-0 p-0 fs-5"></i> Esqueci a senha</a>
+                        <a href="/registro" class="col-sm-auto col-12 my-sm-0 my-2 fw-bold btn btn-outline-primary shadow text-start"><i
+                                class="bi bi-person-fill-add m-0 p-0 fs-5"></i> Criar uma conta</a>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div> <%- include('../components/footer'); %>
