@@ -9,6 +9,7 @@ const Response = require('./resources/Response');
 require('dotenv').config()
 const compression = require("compression");
 const File = require('./resources/File');
+const express_session = require('express-session')
 
 class App {
     listConfigurations;
@@ -37,31 +38,27 @@ class App {
     }
 
     async defineRoutes() {
-        this.serverReceiveDataConfiguration();
-        
         var isError = false;
+
+        this.server.use(express_session({
+            secret: 'keyboard cat',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: false }
+        }))
+
         const routes_ = await this.readFilesRoutes();
         await this.getRoutes(routes_, (route) => {
             const controllerArray = typeof route.controller == 'string' && route.controller.length > 0 ? route.controller.split('::') : '';
-            this.server[route.method](route.url, [upload.fields([])].concat(route.middlewares), async (req, res) => {
+            this.server[route.method](route.url, [upload.fields([])].concat(route.middlewares, this.serverReceiveDataConfiguration()), async (req, res) => {
                 try {
+                    const request = new Request(req);
                     const controller = this.findController(controllerArray[0]);
-                    const response = await controller[controllerArray[1]](new Request(
-                        Object.assign(
-                            {
-                                'url': req.url.indexOf('?') != -1 ? req.url.substring(0, req.url.indexOf('?')) : req.url,
-                            },
-                            req.body,
-                            req.params,
-                            req.query
-                        )
-                    ));
-
+                    const response = await controller[controllerArray[1]](request);
                     response.renderResponse(res);
                 } catch (err) {
                     isError = !isError
-                    Response.error(res, err)
-
+                    Response.error(res, 404, err)
                 }
             });
         });
@@ -176,13 +173,20 @@ class App {
     }
 
     serverReceiveDataConfiguration() {
-        this.server.use(bodyParser.json());
-        this.server.use(upload.array());
-        this.server.use(bodyParser.urlencoded({
-            extended: false
-        }));
+        return [
+            bodyParser.json(),
+            upload.array(),
+            bodyParser.urlencoded({
+                extended: false
+            })
+        ];
     }
     initConfigServer() {
+
+        this.serverReceiveDataConfiguration().forEach(el => {
+            this.server.use(el)
+        });
+
         this.server.engine('html', require('ejs').renderFile);
         this.server.use(compression());
         this.server.set('view engine', 'html');

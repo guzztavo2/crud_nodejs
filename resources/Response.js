@@ -1,5 +1,7 @@
 const fs = require('fs');
 const File = require('./File');
+require('dotenv').config()
+
 class Response {
     SERVER_SETTINGS;
     CONFIGURATION_LIST;
@@ -25,16 +27,14 @@ class Response {
                 data = Object.assign(data, { 'error_message': error.message })
 
             if (typeof error.stack !== 'undefined')
-                data = Object.assign(data, { 'error_message': error.stack })
+                data = Object.assign(data, { 'error_stack': error.stack })
         }
 
 
         const object = {
             'object': (data, status) => {
-                if (typeof this.listConfigurations !== 'undefined' && this.listConfigurations.APP_DEBUG)
-                    ((new Response()).view('error', status ?? 404, data)).renderResponse(res);
-                else
-                    ((new Response()).view('error', status ?? 404, data)).renderResponse(res);
+
+                ((new Response()).view('error', status ?? 404, data)).renderResponse(res);
                 return true;
             },
             'string': (data, status) => {
@@ -43,9 +43,8 @@ class Response {
             }
         }
 
-        if (object[typeof error](data, status) !== true)
+        if (error == null || Object.keys(object).indexOf(typeof error) == -1 || object[typeof error](data, status) !== true)
             ((new Response()).view('error', 404, { title: "Page of Error" })).renderResponse(res);
-
     }
     view(file_dir, status = 200, data) {
 
@@ -58,11 +57,11 @@ class Response {
 
 
     json(data, status = 200) {
-        return new ResponseType('json', null, status, null, Object.assign(this.dataToFront, data), this.HEADERS)
+        return new ResponseType('json', null, status, null, data, this.HEADERS)
     }
 
     data(data, status = 200) {
-        return new ResponseType('data', null, status, null, Object.assign(this.dataToFront, data), this.HEADERS);
+        return new ResponseType('data', null, status, null, data, this.HEADERS);
     }
 
     checkFile(file) {
