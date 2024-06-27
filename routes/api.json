@@ -1,0 +1,32 @@
+[
+  {
+    "method": "get",
+    "url": "/",
+    "controller": "IndexController::index",
+    "middlewares":[]
+  },
+  {
+    "method": "get",
+    "url": "/login",
+    "controller": "IndexController::login",
+    "middlewares":[]
+  },
+  {
+    "method": "post",
+    "url": "/login",
+    "controller": "UserController::login",
+    "middlewares":[]
+  },
+  {
+    "method": "get",
+    "url": "/registro",
+    "controller": "IndexController::register",
+    "middlewares":[]
+  },
+  {
+    "method": "get",
+    "url": "/reset_password",
+    "controller": "IndexController::resetPassword",
+    "middlewares":[]
+  }
+]

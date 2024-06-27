@@ -1,18 +1,25 @@
 const fs = require('fs');
 const File = require('./File');
-require('dotenv').config()
+require('dotenv').config({ path: '../' })
 
 class Response {
     SERVER_SETTINGS;
     CONFIGURATION_LIST;
     HEADERS = [];
     dataToFront = {}
-    constructor() {
+    session
+    response
+    constructor(session = null) {
         this.CONFIGURATION_LIST = {
             APP_URL: process.env.APP_URL == '' || typeof process.env.APP_URL !== 'string' ? 'localhost' : process.env.APP_URL,
             APP_PORT: process.env.APP_PORT ?? 3000
         }
         this.SERVER_SETTINGS = this.CONFIGURATION_LIST['APP_URL'] + ":" + this.CONFIGURATION_LIST['APP_PORT'];
+
+        if (session !== null)
+            this.session = session;
+
+        
     }
 
     static error(res, status, error = null) {
@@ -33,7 +40,6 @@ class Response {
 
         const object = {
             'object': (data, status) => {
-
                 ((new Response()).view('error', status ?? 404, data)).renderResponse(res);
                 return true;
             },
@@ -47,7 +53,6 @@ class Response {
             ((new Response()).view('error', 404, { title: "Page of Error" })).renderResponse(res);
     }
     view(file_dir, status = 200, data) {
-
         file_dir = this.checkFile(file_dir);
         return new ResponseType('view', file_dir, status,
             { HOME_URL: this.CONFIGURATION_LIST['APP_URL'] + ":" + this.CONFIGURATION_LIST['APP_PORT'] },
@@ -55,7 +60,17 @@ class Response {
         );
     };
 
+    back(data) {
+        const before = this.session.getByKey('responses')['before'] ?? undefined;
 
+        if (data !== undefined)
+            this.session.create('responses', { 'data': data })
+        
+        if (before !== undefined)
+            return new ResponseType('redirect', before);
+
+        return new ResponseType('redirect', '/', null, null, Object.assign(this.dataToFront, data), this.HEADERS);
+    }
     json(data, status = 200) {
         return new ResponseType('json', null, status, null, data, this.HEADERS)
     }
@@ -112,7 +127,7 @@ class ResponseType {
 
     renderResponse(res) {
         const setHeaders = (res, headers) => {
-            if (typeof headers == undefined || headers.length == 0)
+            if (headers == null || typeof headers == 'undefined' || headers.length == 0)
                 return;
 
             for (const header of headers) {
@@ -143,6 +158,10 @@ class ResponseType {
                 res.status(this.status).download(this.dataElements);
                 return true;
             },
+            'redirect': () => {
+                res.redirect(this.file)
+                return true;
+            }
         }
         if (response[this.type]() !== true)
             throw Error("Not possible execute this file");
