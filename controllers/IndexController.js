@@ -1,5 +1,5 @@
 const Controller = require('../resources/Controller');
-class userController extends Controller {
+class IndexController extends Controller {
 
     title = 'CREATE READ UPDATE DELETE NODE JS'
 
@@ -17,4 +17,4 @@ class userController extends Controller {
     }
 }
 
-module.exports = userController;
+module.exports = IndexController;

@@ -12,7 +12,9 @@
 
                 <form method="post" action="/login" class="row col-12">
                     <div class="col-12 d-flex flex-column justify-content-center">
-                        <label for="validationCustomUsername" class="fw-bold form-label">Nome de usuário / E-mail
+                        <label for="validationCustomUsername" class="fw-bold form-label">Nome de
+                            usuário /
+                            E-mail
                             *</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">✉️</span>
@@ -21,14 +23,19 @@
                         </div>
                     </div>
                     <div class="col-12 d-flex flex-column justify-content-center my-4">
-                        <label for="validationCustomPassword" class="fw-bold form-label">Senha de usuário *</label>
+                        <label for="validationCustomPassword" class="fw-bold form-label">Senha de
+                            usuário
+                            *</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">🔒</span>
-                            <input name="password_user" type="password" class="form-control" id="validationCustomPassword"
-                                aria-describedby="inputGroupPrepend" required placeholder="Digite sua senha aqui">
-                            <div class="invalid-feedback">
-                                Nome usuário / E-mail invalidos / Senha, tente novamente.
-                            </div>
+                            <input name="password_user" type="password" class="form-control"
+                                id="validationCustomPassword" aria-describedby="inputGroupPrepend" required
+                                placeholder="Digite sua senha aqui">
+                            <% if(typeof errors !=='undefined' ){ %>
+                                <div class="invalid-feedback invalid-feedback d-block py-2 text-center">
+                                    Nome usuário / E-mail invalidos / Senha, tente novamente.
+                                </div>
+                                <% } %>
                         </div>
                     </div>
                     <div class="col-12 d-flex justify-content-center">
@@ -38,9 +45,12 @@
                     </div>
 
                     <div class="col-12 d-flex flex-row flex-wrap justify-content-around align-items-center my-4">
-                        <a href="/reset_password" class="col-sm-auto col-12 my-sm-0 my-2 fw-bold btn btn-outline-danger shadow text-start"><i
-                                class="bi bi-person-exclamation m-0 p-0 fs-5"></i> Esqueci a senha</a>
-                        <a href="/registro" class="col-sm-auto col-12 my-sm-0 my-2 fw-bold btn btn-outline-primary shadow text-start"><i
+                        <a href="/reset_password"
+                            class="col-sm-auto col-12 my-sm-0 my-2 fw-bold btn btn-outline-danger shadow text-start"><i
+                                class="bi bi-person-exclamation m-0 p-0 fs-5"></i> Esqueci a
+                            senha</a>
+                        <a href="/registro"
+                            class="col-sm-auto col-12 my-sm-0 my-2 fw-bold btn btn-outline-primary shadow text-start"><i
                                 class="bi bi-person-fill-add m-0 p-0 fs-5"></i> Criar uma conta</a>
                     </div>
 
