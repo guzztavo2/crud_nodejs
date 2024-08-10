@@ -56,7 +56,8 @@ class App {
                     const request = new Request(req, res);
                     const controller = this.findController(controllerArray[0], request);
                     const response = await controller[controllerArray[1]](request);
-                    response.renderResponse(res);
+                    if (typeof response !== 'undefined' && response !== undefined)
+                        response.renderResponse(res);
                 } catch (err) {
                     isError = !isError
                     Response.error(res, 404, err)
@@ -244,7 +245,9 @@ class App {
 
             if (!existMigration)
                 await mysql.createMigrationTable();
-        } catch (err) { } return;
+        } catch (err) {
+            console.log(err);
+        } return;
     }
 
 }

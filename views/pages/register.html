@@ -2,56 +2,69 @@
     <div style="overflow: auto;"
         class="d-flex flex-column justify-content-center align-items-center container h-100 w-100 text-dark mw-100">
         <div id="pageDiv" class="d-block border rounded shadow-lg col-xl-4 col-12 p-3">
-            <div class="d-flex w-100 flex-row justify-content-xl-start justify-content-center align-items-center flex-wrap">
-                <a href="../" id="backBtn" class="btn col-auto btn-outline-dark m-0 p-0 px-2 py-1 cursor-pointer rounded">
+            <div
+                class="d-flex w-100 flex-row justify-content-xl-start justify-content-center align-items-center flex-wrap">
+                <a href="../" id="backBtn"
+                    class="btn col-auto btn-outline-dark m-0 p-0 px-2 py-1 cursor-pointer rounded">
                     <i class="fs-5 bi bi-arrow-return-left"></i> <br>
                     <span class="fs-6 fw-normal">Voltar</span>
                 </a>
                 <h5 class="col-auto ms-2 p-2 text-uppercase text-md-start text-center m-0"> Registre sua conta</h5>
                 <hr class="w-100 bg-dark d-block">
 
-                <form method="post" class="row col-12">
+                <form method="post" action="/registro" class="row col-12">
                     <div class="col-xl-6 col-12 d-flex flex-column justify-content-center">
                         <label for="validationCustomUsername" class="fw-bold form-label">Nome de usuário *</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">✉️</span>
-                            <input type="text" class="form-control" id="validationCustomUsername"
+                            <input name="user_name" type="text" class="form-control" id="validationCustomUsername"
                                 aria-describedby="inputGroupPrepend" required placeholder="Digite aqui">
-                            <div class="invalid-feedback">
-                                Nome de usuário inválido, tente novamente.
-                            </div>
+                            <%if(typeof errors !=='undefined' && typeof errors['user_name'] !='undefined' ){ %>
+                                <div class="invalid-feedback d-block">
+                                    Nome de usuário inválido, tente novamente.
+                                </div>
+                                <% } %>
                         </div>
                     </div>
                     <div class="col-xl-6 col-12 d-flex flex-column justify-content-center mt-xl-0 mt-3">
                         <label for="validationCustomUsername" class="fw-bold form-label">E-mail *</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">✉️</span>
-                            <input type="text" class="form-control" id="validationCustomUsername"
+                            <input name="user_email" type="text" class="form-control" id="validationCustomUsername"
                                 aria-describedby="inputGroupPrepend" required placeholder="Digite aqui">
-                            <div class="invalid-feedback">
-                                E-mail de usuário inválido, tente novamente.
-                            </div>
+                            <%if(typeof errors !=='undefined' && typeof errors['user_email'] !='undefined' ){ %>
+                                <div class="invalid-feedback d-block">
+                                    <%= errors['user_email']%>
+                                </div>
+                                <% } %>
                         </div>
                     </div>
                     <div class="col-12 d-flex flex-column justify-content-center mt-3">
                         <label for="validationCustomPassword" class="fw-bold form-label">Senha *</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">🔒</span>
-                            <input type="password" class="form-control" id="validationCustomPassword"
-                                aria-describedby="inputGroupPrepend" required placeholder="Digite sua senha aqui">
-                            <div class="invalid-feedback">
-                                Nome usuário / E-mail invalidos / Senha, tente novamente.
-                            </div>
+                            <input name="user_password" type="password" class="form-control"
+                                id="validationCustomPassword" aria-describedby="inputGroupPrepend" required
+                                placeholder="Digite sua senha aqui">
+                            <%if(typeof errors !=='undefined' && typeof errors['user_password'] !='undefined' ){ %>
+                                <div class="invalid-feedback d-block">
+                                    <%= errors['user_password']%>
+                                </div>
+                                <% } %>
                         </div>
                         <label for="validationCustomPassword" class="fw-bold form-label mt-2">Senha confirme sua senha
                             *</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">🔒</span>
-                            <input type="password" class="form-control" id="validationCustomPassword"
-                                aria-describedby="inputGroupPrepend" required placeholder="Digite sua senha aqui">
-                            <div class="invalid-feedback">
-                                As senhas não batem.
-                            </div>
+                            <input name="user_confirm_password" type="password" class="form-control"
+                                id="validationCustomPassword" aria-describedby="inputGroupPrepend" required
+                                placeholder="Digite sua senha aqui">
+                            <%if(typeof errors !=='undefined' && typeof errors['user_confirm_password'] !='undefined' ){
+                                %>
+                                <div class="invalid-feedback d-block">
+                                    <%= errors['user_confirm_password']%>
+                                </div>
+                                <% } %>
                         </div>
                     </div>
                     <div class="col-12 d-flex justify-content-center my-3">

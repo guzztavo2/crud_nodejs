@@ -31,9 +31,11 @@
                             <input name="password_user" type="password" class="form-control"
                                 id="validationCustomPassword" aria-describedby="inputGroupPrepend" required
                                 placeholder="Digite sua senha aqui">
-                            <% if(typeof errors !=='undefined' ){ %>
+                            <% if(typeof errors !== 'undefined'){ %>
                                 <div class="invalid-feedback invalid-feedback d-block py-2 text-center">
-                                    Nome usuário / E-mail invalidos / Senha, tente novamente.
+                                    Nome usuário / E-mail / Senha inválidos tente novamente. </br>
+                                    Ou <a href="/reset_password?user_email=<%=login_user%>">clique aqui e troque sua
+                                        senha</a>
                                 </div>
                                 <% } %>
                         </div>

@@ -1,0 +1,22 @@
+<%- include('../components/navbar'); %>
+    <div style="overflow: auto;"
+        class="d-flex flex-column p-4 align-items-center bg-success container h-100 w-100 text-dark mw-100">
+        <h1 class="fw-bold text-uppercase text-light border-bottom w-100 text-center">Conta criada com sucesso</h1>
+        <div class="d-flex flex-row p-3 mt-5 border rounded w-50 align-items-center justify-content-center">
+            <p class="text-light p-0 m-0">
+                <b> Bem-vindo(a), <%= usuario['nome'] %>!</b> </br>
+                Sua conta foi criada com sucesso. Estamos felizes em tê-lo(a) conosco! Agora você pode aproveitar todos
+                os benefícios e recursos que oferecemos. Se precisar de qualquer ajuda, não hesite em nos contatar.
+                </br> </br>
+
+                <span class="text-center w-100 d-inline-block m-0 p-0">Aproveite e explore todas as funcionalidades que
+                    preparamos para você.</br></br>
+
+                    Atenciosamente, </br>
+                    <b>Gustavo Bonifácio</b>
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <%- include('../components/footer'); %>

@@ -7,6 +7,12 @@
   },
   {
     "method": "get",
+    "url": "/success",
+    "controller": "IndexController::success",
+    "middlewares":[]
+  },
+  {
+    "method": "get",
     "url": "/login",
     "controller": "IndexController::login",
     "middlewares":[]
@@ -21,6 +27,12 @@
     "method": "get",
     "url": "/registro",
     "controller": "IndexController::register",
+    "middlewares":[]
+  },
+  {
+    "method": "post",
+    "url": "/registro",
+    "controller": "UserController::register",
     "middlewares":[]
   },
   {
