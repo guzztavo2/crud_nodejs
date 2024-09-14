@@ -1,10 +1,14 @@
+const Informacao = require('../models/Informacao');
+const User = require('../models/User');
 const Controller = require('../resources/Controller');
 const Validator = require('../resources/Validator');
 class IndexController extends Controller {
 
     title = 'CREATE READ UPDATE DELETE NODE JS'
 
-    index(request) {
+    async index(request) {
+        const user = await User.first();
+        const informacoes = await user.informacoes();
         return this.response.view('pages/index', 200);
     }
 
@@ -18,14 +22,12 @@ class IndexController extends Controller {
     }
 
     register(request) {
-
         return this.response.view('pages/register', 200);
     }
     success(request) {
-
-        return this.response.view('pages/success', 200, {'usuario': {'nome': 'Well'}});
+        return this.response.view('pages/success', 200, { 'usuario': { 'nome': 'Well' } });
     }
-    
+
     async resetPassword(request) {
         const validator = await (new Validator()).make(request.requestsToObject(), { 'user_email': 'email' });
         const user_email = request.getByKey('user_email') ?? null;
