@@ -1,11 +1,12 @@
 const fs = require('fs');
+const { exit } = require('process');
 
 if (process.argv[2] == null) {
     console.log("\nModel's name it's necessary to create a Model.");
     console.log("Example: node cli/User.js -- User created.\n");
     return;
 }
-const modelName = process.argv[2].toString();
+const modelName = process.argv[2].toString().replaceAll(/[^a-z{/}]/gm, "");
 const changeDirectory = () => {
     let directory = process.argv[1];
     directory = directory.split('/');
@@ -42,4 +43,6 @@ try {
 
 } catch (error) {
     console.log("\nNot possible create archive: " + modelName + "\nError:" + error + "\n");
+} finally{
+    exit(0);
 }

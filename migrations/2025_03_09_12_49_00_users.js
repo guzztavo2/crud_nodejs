@@ -1,7 +1,7 @@
 const Migration = require("../resources/Migration");
 
 const randomMigration = new class extends Migration {
-    table_name = "user";
+    table_name = "users";
 
     create() {
         return [
@@ -9,7 +9,7 @@ const randomMigration = new class extends Migration {
             this.string('name').nullable(true),
             this.string('email').unique(true),
             this.string('password').nullable(false),
-            this.json('items').nullable(false),
+            this.json('items').nullable(true),
         ];
     }
 }

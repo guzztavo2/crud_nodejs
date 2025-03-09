@@ -17,8 +17,9 @@
                         <label for="validationCustomUsername" class="fw-bold form-label">Nome de usuário *</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">✉️</span>
-                            <input name="user_name" type="text" class="form-control" id="validationCustomUsername"
-                                aria-describedby="inputGroupPrepend" required placeholder="Digite aqui">
+                            <input value="<%= typeof user_name !== 'undefined' ? user_name : ''  %>" name="user_name" type="text" class="form-control"
+                                id="validationCustomUsername" aria-describedby="inputGroupPrepend" required
+                                placeholder="Digite aqui">
                             <%if(typeof errors !=='undefined' && typeof errors['user_name'] !='undefined' ){ %>
                                 <div class="invalid-feedback d-block">
                                     Nome de usuário inválido, tente novamente.
@@ -30,8 +31,10 @@
                         <label for="validationCustomUsername" class="fw-bold form-label">E-mail *</label>
                         <div class="input-group has-validation">
                             <span class="input-group-text" id="inputGroupPrepend">✉️</span>
-                            <input name="user_email" type="text" class="form-control" id="validationCustomUsername"
-                                aria-describedby="inputGroupPrepend" required placeholder="Digite aqui">
+                            <input value="<%= typeof user_email !== 'undefined' ? user_email : ''  %>" name="user_email" type="email" class="form-control"
+                                id="validationCustomUsername" aria-describedby="inputGroupPrepend" required
+                                placeholder="Digite aqui">
+
                             <%if(typeof errors !=='undefined' && typeof errors['user_email'] !='undefined' ){ %>
                                 <div class="invalid-feedback d-block">
                                     <%= errors['user_email']%>

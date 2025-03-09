@@ -49,15 +49,15 @@ class UserController extends Controller {
             }
         );
         if (!validator.isSuccess)
-            return this.response.back({ errors: validator.errors });
+            return this.response.back(Object.assign(request.requestsToObject(), { errors: validator.errors }));
 
         const inputs = request.requestsToObject();
 
-        if ((!inputs['user_confirm_password'] || !inputs['user_password']) || inputs['user_password'] !== inputs['user_confirm_password'])
+        if (inputs['user_password'] !== inputs['user_confirm_password'])
             return this.response.back({ 'errors': { 'user_password': 'Os dois campos precisam ser iguais.', 'user_confirm_password': 'Os dois campos precisam ser iguais.' } });
         
         try {
-            const user = await User.create({
+            var user = await User.create({
                 'name': inputs['user_name'],
                 'email': inputs['user_email'],
                 'password': inputs['user_password']

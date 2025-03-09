@@ -9,7 +9,7 @@ const Response = require('./resources/Response');
 require('dotenv').config()
 const compression = require("compression");
 const File = require('./resources/File');
-const express_session = require('express-session')
+const express_session = require('express-session');
 
 class App {
     listConfigurations;
@@ -51,7 +51,8 @@ class App {
         const routes_ = await this.readFilesRoutes();
         await this.getRoutes(routes_, (route) => {
             const controllerArray = typeof route.controller == 'string' && route.controller.length > 0 ? route.controller.split('::') : '';
-            this.server[route.method](route.url, [upload.fields([])].concat(route.middlewares, this.serverReceiveDataConfiguration()), async (req, res) => {
+            this.server[route.method](route.url, [upload.fields([])].concat(route.middlewares, 
+                this.serverReceiveDataConfiguration()), async (req, res) => {
                 try {
                     const request = new Request(req, res);
                     const controller = this.findController(controllerArray[0], request);
@@ -137,8 +138,8 @@ class App {
                 callback(route);
             }
         }
-
     }
+    
     async checkMiddlewares(route) {
         const middlewares = [];
         if (route.middlewares && route.middlewares.length > 0)
@@ -197,7 +198,9 @@ class App {
         this.server.use(compression());
         this.server.set('view engine', 'html');
         this.server.use('/public', express.static(Path.join(__dirname, 'public')));
+        this.server.use(express.json());
         this.server.set('views', Path.join(__dirname, '/views'));
+        // this.server.use(this.generateCsrfToken);
         this.securityPass();
         this.requestLimiter();
         this.initCorsConfig();
@@ -227,7 +230,6 @@ class App {
         this.server.use(helmet.frameguard({ action: 'deny' }));
         this.server.use(helmet.xssFilter());
         this.server.use(helmet.referrerPolicy({ policy: 'same-origin' }));
-
     }
     requestLimiter() {
         const RateLimit = require("express-rate-limit");

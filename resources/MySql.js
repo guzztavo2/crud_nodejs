@@ -93,11 +93,11 @@ class MySql {
             keys.forEach((val) => {
                 const keyExist = existKeys.includes(val);
 
-                if (keyExist) {
+                if (keyExist)
                     sql += " MODIFY COLUMN " + val + " " + names_types[val] + ",";
-                } else {
-                    sql += " ADD " + val + " " + names_types[val] + ",";;
-                }
+                else
+                    sql += " ADD " + val + " " + names_types[val] + ",";
+
 
             })
             sql = sql.substring(0, sql.lastIndexOf(',')) + ";";
@@ -120,9 +120,9 @@ class MySql {
 
         let sql = "INSERT INTO " + table + " (" + keys.join(",") + ") VALUES (" + values.join(",") + ")";
 
-        return new Promise((res) => {
+        return new Promise((res, reject) => {
             this.connection.query(sql, function (err, result) {
-                if (err) throw err;
+                if (err) reject(err);
                 res(result);
             });
         })
@@ -152,6 +152,8 @@ class MySql {
             if (keys == null)
                 this.connection.query("SELECT * FROM " + table, (err, result, fields) => {
                     if (err) error(err);
+                    if(!fields)
+                        return [];
                     res(fields.map((value) => value.name));
                 });
             else
@@ -391,10 +393,10 @@ class MySql {
         });
     }
     raw(query) {
-        return new Promise((res) => {
+        return new Promise((res, reject) => {
             this.connection.query(query, (err, result) => {
                 if (err)
-                    throw err;
+                    reject(err);
 
                 res(result);
             })

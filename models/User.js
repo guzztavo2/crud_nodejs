@@ -1,6 +1,6 @@
 const Model = require("../resources/Model");
 class User extends Model {
-    table = 'user';
+    table = 'users';
     Informacao = require('../models/Informacao');
 
     fillable = [
@@ -20,7 +20,7 @@ class User extends Model {
         return this.belongsToMany(this.Items, 'items', 'item_id', 'id');
     }
     informacoes() {
-        return this.belongsToMany(this.Informacao, 'users_informacao', 'user_id', 'id');
+        return this.belongsToMany(this.Informacao, 'users_informacoes', 'user_id', 'id');
     }
 
 
